@@ -23,6 +23,15 @@ class MainWindow(QMainWindow):
         self.amount_of_files = 0
         self.isTransfering = False
         self.cancelTransfer = False
+
+        # TEMP #
+        self.ui.path_xml.setText(
+            "C:\\Users\\Ember\\Desktop\\from\\AKT02P02.xml")
+        self.ui.path_copy.setText("D:\\to")
+        self.ui.path_external.setText("C:\\Users\\Ember\\Desktop\\from")
+        self.ui.path_root.setText("C:\\Users\\Ember\\Desktop\\from")
+        # TEMP #
+
         self.ui.lb_datarate.setText("")
         self.sourceSize = 0
         self.destSize = 0
@@ -37,6 +46,17 @@ class MainWindow(QMainWindow):
             "{}{:.0f} {}", "{}{:.1f} {}", "{}{:.2f} {}", "{}{:.3f} {}"]
         self.connectEvents()
         self.show()
+
+    def __keyPressEvent(self, event):
+        if event.matches(QKeySequence.Delete):
+            self.__removeServer()
+        else:
+            QTableWidget.keyPressEvent(self.setup.serverTable, event)
+
+    def __removeServer(self):
+        self.ui.tw_status.removeRow(
+            self.ui.tw_status.currentRow()
+        )
 
     def connectEvents(self):
         self.ui.btn_xml.clicked.connect(
@@ -54,6 +74,7 @@ class MainWindow(QMainWindow):
             self.fileProcess)
         self.ui.btn_transfer.clicked.connect(
             self.startTransfer)
+        self.ui.tw_status.keyPressEvent = self.__keyPressEvent
 
     def browseXML(self, textfield):
         fname = QFileDialog.getOpenFileName(self,
@@ -82,7 +103,7 @@ class MainWindow(QMainWindow):
                 textfield.setText(os.path.abspath(common_path))
 
     def startTransfer(self):
-        if self.ui.path_copy.text() == "":
+        if self.ui.tw_status.rowCount() == 0:
             return
 
         if self.isTransfering is False:
@@ -90,35 +111,41 @@ class MainWindow(QMainWindow):
             self.isTransfering = True
             self.ui.btn_transfer.setText("Cancel")
 
-            files = self.fileProcess()
-            files = self.generateFromToList(files)
-
-            self.print_info("", reset=True)
             self.totalProgress(0)
             self.ui.pb_file.setValue(0)
             self.sourceSize = 0
             self.destSize = 0
 
-            for i, file in enumerate(files):
+            for row in range(self.ui.tw_status.rowCount()):
+                if file_from = self.ui.tw_status.item(row, 1).text() == "Not Found":
+                    self.totalProgress(row + 1)
+                    self.updateInfoText(row + 1)
+                    continue
 
-                self.print_info("Transfering "
-                                + file["from"] + " to " + file["to"])
+                file_from = self.ui.tw_status.item(row, 2).text()
+                file_to = self.ui.tw_status.item(row, 3).text()
 
-                self.copyfileobj(src=file["from"],
-                                 dst=file["to"],
+                self.ui.tw_status.setItem(
+                    row,
+                    0,
+                    QTableWidgetItem("Transfering")
+                )
+
+                self.copyfileobj(src=file_from,
+                                 dst=file_to,
+                                 row=row,
                                  callback_progress=self.fileProgress,
                                  callback_copydone=self.fileProgress)
 
                 if self.cancelTransfer is True:
                     break
 
-                self.totalProgress(i + 1)
-                self.updateInfoText(i + 1)
+                self.totalProgress(row + 1)
+                self.updateInfoText(row + 1)
 
             self.ui.pb_file.setValue(100)
             self.totalProgress(100)
             self.ui.lb_datarate.setText("")
-            self.print_info("\nTransfer complete!")
             self.isTransfering = False
             self.cancelTransfer = False
 
@@ -164,7 +191,7 @@ class MainWindow(QMainWindow):
             return [filepath]
 
     def fileProcess(self):
-        if self.ui.path_xml.text() == "":
+        if self.ui.path_xml.text() == "" or os.path.isfile(self.ui.path_xml.text()) is False:
             return
 
         dom = ElementTree.parse(self.ui.path_xml.text())
@@ -176,6 +203,7 @@ class MainWindow(QMainWindow):
 
         found_files = []
         not_found = []
+        self.ui.tw_status.setRowCount(0)
         # searching in selected directory only
         for file in video_files:
             if self.ui.cb_external.isChecked() is True:
@@ -216,20 +244,67 @@ class MainWindow(QMainWindow):
             found_files = extra_files
 
         # Report back
-        self.print_info("", reset=True)
         if len(found_files) > 0:
-            self.print_info("Found:")
             for file in found_files:
-                self.print_info(file)
+                self.addToList(file, "Found")
 
         if len(not_found) > 0:
-            self.print_info("\nNot Found:")
             for file in not_found:
-                self.print_info(file)
+                self.addToList(file, "Not Found")
 
         self.amount_of_files = len(found_files)
+        self.ui.tw_status.resizeColumnsToContents()
         self.updateInfoText(0)
         return found_files
+
+    def addToList(self, file, found):
+        status = "Ready"
+        copy_from = os.path.abspath(file)
+        copy_to = None
+        if self.ui.cb_clone.isChecked() is True and self.ui.path_root.text() != "":
+            to_text = os.path.join(
+                os.path.abspath(self.ui.path_copy.text()),
+                copy_from.replace(
+                    os.path.abspath(self.ui.path_root.text()) + os.sep,
+                    ''
+                )
+            )
+            copy_to = to_text
+        else:
+            copy_to = os.path.join(
+                os.path.abspath(self.ui.path_copy.text()),
+                (os.path.split(file))[1]
+            )
+
+        extension = os.path.splitext(file)[1]
+        row = self.ui.tw_status.rowCount()
+        self.ui.tw_status.setRowCount(row + 1)
+
+        self.ui.tw_status.setItem(
+            row,
+            0,
+            QTableWidgetItem(status)
+        )
+        self.ui.tw_status.setItem(
+            row,
+            1,
+            QTableWidgetItem(found)
+        )
+        self.ui.tw_status.setItem(
+            row,
+            2,
+            QTableWidgetItem(copy_from)
+        )
+        self.ui.tw_status.setItem(
+            row,
+            3,
+            QTableWidgetItem(copy_to)
+        )
+        self.ui.tw_status.setItem(
+            row,
+            4,
+            QTableWidgetItem(extension)
+        )
 
     def generateFromToList(self, video_files):
         # generate from and to list
@@ -325,7 +400,7 @@ class MainWindow(QMainWindow):
             + " files copied"
         )
 
-    def copyfileobj(self, src, dst, callback_progress, callback_copydone, length=8*1024):
+    def copyfileobj(self, src, dst, row, callback_progress, callback_copydone, length=8*1024):
 
         # Prevent progress callback from being made each cycle
         c = 0
@@ -333,7 +408,11 @@ class MainWindow(QMainWindow):
 
         if self.ui.cb_overwrite.isChecked() is False:
             if os.path.isfile(dst) is True:
-                self.print_info("Already exist on destination\n")
+                self.ui.tw_status.setItem(
+                    row,
+                    0,
+                    QTableWidgetItem("Already exist on destination")
+                )
                 return
 
         try:
@@ -357,11 +436,19 @@ class MainWindow(QMainWindow):
                             c = 0
             fdst.close()
         except OSError as exc:
-            self.print_info("Error: " + exc + "\n")
+            self.ui.tw_status.setItem(
+                row,
+                0,
+                QTableWidgetItem("Error: " + str(exc))
+            )
             raise
 
         if self.cancelTransfer is True:
-            self.print_info("Canceled\n")
+            self.ui.tw_status.setItem(
+                row,
+                0,
+                QTableWidgetItem("Canceled")
+            )
             file = os.path.split(dst)[1]
             # check if dst exist. If so if we want to delete the file.
             msg = QMessageBox(
@@ -388,7 +475,16 @@ class MainWindow(QMainWindow):
                     )
                     action = msg.exec_()
         else:
-            self.print_info("Done\n")
+            self.ui.tw_status.setItem(
+                row,
+                0,
+                QTableWidgetItem("Done")
+            )
+
+    def startResilioDownload(self, file):
+        os.system(
+            'cmd /c "\"C:\\Users\\Ember\\AppData\\Roaming\\Resilio Sync\\Resilio Sync.exe\" /OPEN \"' + file + '.rsls\"'
+        )
 
     # Taken from https://stackoverflow.com/a/600612/119527
     def mkdir_p(self, path):

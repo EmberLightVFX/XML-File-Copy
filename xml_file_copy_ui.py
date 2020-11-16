@@ -28,6 +28,26 @@ class Ui_MainWindow(object):
         self.centralwidget.setSizePolicy(sizePolicy)
         self.verticalLayout_2 = QVBoxLayout(self.centralwidget)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
+        self.horizontalLayout_5 = QHBoxLayout()
+        self.horizontalLayout_5.setObjectName(u"horizontalLayout_5")
+        self.radioButton = QRadioButton(self.centralwidget)
+        self.radioButton.setObjectName(u"radioButton")
+        self.radioButton.setChecked(True)
+
+        self.horizontalLayout_5.addWidget(self.radioButton)
+
+        self.radioButton_2 = QRadioButton(self.centralwidget)
+        self.radioButton_2.setObjectName(u"radioButton_2")
+
+        self.horizontalLayout_5.addWidget(self.radioButton_2)
+
+        self.horizontalSpacer_3 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.horizontalLayout_5.addItem(self.horizontalSpacer_3)
+
+
+        self.verticalLayout_2.addLayout(self.horizontalLayout_5)
+
         self.gridLayout = QGridLayout()
         self.gridLayout.setObjectName(u"gridLayout")
         self.btn_xml = QPushButton(self.centralwidget)
@@ -117,13 +137,26 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_2.addLayout(self.gridLayout_2)
 
-        self.txt_filelist = QPlainTextEdit(self.centralwidget)
-        self.txt_filelist.setObjectName(u"txt_filelist")
-        self.txt_filelist.setUndoRedoEnabled(False)
-        self.txt_filelist.setLineWrapMode(QPlainTextEdit.NoWrap)
-        self.txt_filelist.setReadOnly(True)
+        self.tw_status = QTableWidget(self.centralwidget)
+        if (self.tw_status.columnCount() < 5):
+            self.tw_status.setColumnCount(5)
+        __qtablewidgetitem = QTableWidgetItem()
+        self.tw_status.setHorizontalHeaderItem(0, __qtablewidgetitem)
+        __qtablewidgetitem1 = QTableWidgetItem()
+        self.tw_status.setHorizontalHeaderItem(1, __qtablewidgetitem1)
+        __qtablewidgetitem2 = QTableWidgetItem()
+        self.tw_status.setHorizontalHeaderItem(2, __qtablewidgetitem2)
+        __qtablewidgetitem3 = QTableWidgetItem()
+        self.tw_status.setHorizontalHeaderItem(3, __qtablewidgetitem3)
+        __qtablewidgetitem4 = QTableWidgetItem()
+        self.tw_status.setHorizontalHeaderItem(4, __qtablewidgetitem4)
+        self.tw_status.setObjectName(u"tw_status")
+        self.tw_status.setAlternatingRowColors(True)
+        self.tw_status.setSelectionMode(QAbstractItemView.SingleSelection)
+        self.tw_status.setHorizontalScrollMode(QAbstractItemView.ScrollPerPixel)
+        self.tw_status.setWordWrap(False)
 
-        self.verticalLayout_2.addWidget(self.txt_filelist)
+        self.verticalLayout_2.addWidget(self.tw_status)
 
         self.horizontalLayout = QHBoxLayout()
         self.horizontalLayout.setObjectName(u"horizontalLayout")
@@ -207,6 +240,8 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"XML File Copy", None))
+        self.radioButton.setText(QCoreApplication.translate("MainWindow", u"File copy", None))
+        self.radioButton_2.setText(QCoreApplication.translate("MainWindow", u"Resilio Selective Sync", None))
         self.btn_xml.setText(QCoreApplication.translate("MainWindow", u"Browse", None))
         self.lb_xml.setText(QCoreApplication.translate("MainWindow", u"XML", None))
         self.lb_copy.setText(QCoreApplication.translate("MainWindow", u"Copy to", None))
@@ -217,6 +252,16 @@ class Ui_MainWindow(object):
         self.cb_subdirs.setText(QCoreApplication.translate("MainWindow", u"Search subdirs", None))
         self.btn_root.setText(QCoreApplication.translate("MainWindow", u"Get from XML", None))
         self.btn_external.setText(QCoreApplication.translate("MainWindow", u"Browse", None))
+        ___qtablewidgetitem = self.tw_status.horizontalHeaderItem(0)
+        ___qtablewidgetitem.setText(QCoreApplication.translate("MainWindow", u"Status", None));
+        ___qtablewidgetitem1 = self.tw_status.horizontalHeaderItem(1)
+        ___qtablewidgetitem1.setText(QCoreApplication.translate("MainWindow", u"Found", None));
+        ___qtablewidgetitem2 = self.tw_status.horizontalHeaderItem(2)
+        ___qtablewidgetitem2.setText(QCoreApplication.translate("MainWindow", u"Copy From", None));
+        ___qtablewidgetitem3 = self.tw_status.horizontalHeaderItem(3)
+        ___qtablewidgetitem3.setText(QCoreApplication.translate("MainWindow", u"Copy To", None));
+        ___qtablewidgetitem4 = self.tw_status.horizontalHeaderItem(4)
+        ___qtablewidgetitem4.setText(QCoreApplication.translate("MainWindow", u"Extension", None));
         self.cb_overwrite.setText(QCoreApplication.translate("MainWindow", u"Overwrite existing files", None))
         self.cb_sequence.setText(QCoreApplication.translate("MainWindow", u"Transfer sequenced files", None))
         self.le_sequence.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Enter extensions that uses sequences. Seperate using \",\" Eg: R3D, png, jpg", None))

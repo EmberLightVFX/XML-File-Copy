@@ -25,6 +25,40 @@
    </property>
    <layout class="QVBoxLayout" name="verticalLayout_2">
     <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_5">
+      <item>
+       <widget class="QRadioButton" name="radioButton">
+        <property name="text">
+         <string>File copy</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="radioButton_2">
+        <property name="text">
+         <string>Resilio Selective Sync</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_3">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </item>
+    <item>
      <layout class="QGridLayout" name="gridLayout">
       <item row="0" column="3">
        <widget class="QPushButton" name="btn_xml">
@@ -129,16 +163,44 @@
      </layout>
     </item>
     <item>
-     <widget class="QPlainTextEdit" name="txt_filelist">
-      <property name="undoRedoEnabled">
-       <bool>false</bool>
-      </property>
-      <property name="lineWrapMode">
-       <enum>QPlainTextEdit::NoWrap</enum>
-      </property>
-      <property name="readOnly">
+     <widget class="QTableWidget" name="tw_status">
+      <property name="alternatingRowColors">
        <bool>true</bool>
       </property>
+      <property name="selectionMode">
+       <enum>QAbstractItemView::SingleSelection</enum>
+      </property>
+      <property name="horizontalScrollMode">
+       <enum>QAbstractItemView::ScrollPerPixel</enum>
+      </property>
+      <property name="wordWrap">
+       <bool>false</bool>
+      </property>
+      <column>
+       <property name="text">
+        <string>Status</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Found</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Copy From</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Copy To</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Extension</string>
+       </property>
+      </column>
      </widget>
     </item>
     <item>
