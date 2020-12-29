@@ -5,7 +5,7 @@ Copy files from an XML file.
 * For Windows you need to insall Python 3.x
 * For Mac you're fine with the pre-installed Python 2.7
 * Linux is not yet tested
-* 
+
 All needed external libraries are located in the PythonLib folder.
 
 Execute XML File Copy.bat/command or run `python "xml_file_copy.py"` from terminal to start the software
