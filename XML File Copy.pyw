@@ -17,7 +17,7 @@ sys.path.insert(0, os.path.join(libdir, "PythonLibs", osName))  # nopep8
 
 if sys.version[0] == "3":   # nopep8
     import urllib.parse as urlparse
-    import os.scandir as scandir
+    from os import scandir as scandir
 else:
     import urlparse
     from scandir import scandir
