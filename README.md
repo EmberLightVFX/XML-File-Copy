@@ -8,9 +8,7 @@ Copy files from an XML file.
 * 
 All needed external libraries are located in the PythonLib folder.
 
-## Usage
-* Windows - double click XML File Copy.pyw or run `python "XML File Copy.pyw"` from cmd
-* Mac - Execute XML File Copy.command
+Execute XML File Copy.bat/command or run `python "xml_file_copy.py"` from terminal to start the software
 
 ##### Copy from XML:
 1. Select `File copy` in the top.
