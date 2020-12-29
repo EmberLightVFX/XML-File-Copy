@@ -7,12 +7,10 @@
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
-
 from PySide2.QtCore import *
 from PySide2.QtGui import *
 from PySide2.QtWidgets import *
-
-
+            
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
@@ -30,16 +28,16 @@ class Ui_MainWindow(object):
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
         self.horizontalLayout_5 = QHBoxLayout()
         self.horizontalLayout_5.setObjectName(u"horizontalLayout_5")
-        self.radioButton = QRadioButton(self.centralwidget)
-        self.radioButton.setObjectName(u"radioButton")
-        self.radioButton.setChecked(True)
+        self.rb_filecopy = QRadioButton(self.centralwidget)
+        self.rb_filecopy.setObjectName(u"rb_filecopy")
+        self.rb_filecopy.setChecked(True)
 
-        self.horizontalLayout_5.addWidget(self.radioButton)
+        self.horizontalLayout_5.addWidget(self.rb_filecopy)
 
-        self.radioButton_2 = QRadioButton(self.centralwidget)
-        self.radioButton_2.setObjectName(u"radioButton_2")
+        self.rb_resilio = QRadioButton(self.centralwidget)
+        self.rb_resilio.setObjectName(u"rb_resilio")
 
-        self.horizontalLayout_5.addWidget(self.radioButton_2)
+        self.horizontalLayout_5.addWidget(self.rb_resilio)
 
         self.horizontalSpacer_3 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
@@ -240,8 +238,8 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"XML File Copy", None))
-        self.radioButton.setText(QCoreApplication.translate("MainWindow", u"File copy", None))
-        self.radioButton_2.setText(QCoreApplication.translate("MainWindow", u"Resilio Selective Sync", None))
+        self.rb_filecopy.setText(QCoreApplication.translate("MainWindow", u"File copy", None))
+        self.rb_resilio.setText(QCoreApplication.translate("MainWindow", u"Resilio Selective Sync", None))
         self.btn_xml.setText(QCoreApplication.translate("MainWindow", u"Browse", None))
         self.lb_xml.setText(QCoreApplication.translate("MainWindow", u"XML", None))
         self.lb_copy.setText(QCoreApplication.translate("MainWindow", u"Copy to", None))

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>786</width>
-    <height>549</height>
+    <width>784</width>
+    <height>542</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -27,7 +27,7 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_5">
       <item>
-       <widget class="QRadioButton" name="radioButton">
+       <widget class="QRadioButton" name="rb_filecopy">
         <property name="text">
          <string>File copy</string>
         </property>
@@ -37,7 +37,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QRadioButton" name="radioButton_2">
+       <widget class="QRadioButton" name="rb_resilio">
         <property name="text">
          <string>Resilio Selective Sync</string>
         </property>

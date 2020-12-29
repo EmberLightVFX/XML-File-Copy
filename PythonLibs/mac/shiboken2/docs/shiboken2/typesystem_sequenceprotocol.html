@@ -1,0 +1,114 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Sequence Protocol</title>
+    <link rel="stylesheet" href="_static/pyside.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="next" title="Examples" href="examples/index.html" />
+    <link rel="prev" title="Solving compilation problems" href="typesystem_solving_compilation.html" /> 
+  </head><body>
+<div id="container">
+<div class="header">
+    <div class="header_container">
+        <div class="logo"><a href="http://www.pyside.org"><img alt="PySide" src="_static/pysidelogo.png"/></a></div>
+  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a></li>
+        <li class="right" >
+          <a href="examples/index.html" title="Examples"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="typesystem_solving_compilation.html" title="Solving compilation problems"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Shiboken  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="typesystem.html" accesskey="U">Type System Reference</a> &#187;</li> 
+      </ul>
+    </div>
+    </div>
+</div>
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="sequence-protocol">
+<h1>Sequence Protocol</h1>
+<p>Support for the sequence protocol is achieved adding functions with special
+names, this is done using the add-function tag.</p>
+<p>The special function names are:</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="13%" />
+<col width="47%" />
+<col width="20%" />
+<col width="19%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Function name</th>
+<th class="head">Parameters</th>
+<th class="head">Return type</th>
+<th class="head">CPython equivalent</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>__len__</td>
+<td>PyObject* self</td>
+<td>Py_ssize_t</td>
+<td>PySequence_Size</td>
+</tr>
+<tr class="row-odd"><td>__getitem__</td>
+<td>PyObject* self, Py_ssize_t _i</td>
+<td>PyObject*</td>
+<td>PySequence_GetItem</td>
+</tr>
+<tr class="row-even"><td>__setitem__</td>
+<td>PyObject* self, Py_ssize_t _i, PyObject* _value</td>
+<td>int</td>
+<td>PySequence_SetItem</td>
+</tr>
+<tr class="row-odd"><td>__contains__</td>
+<td>PyObject* self, PyObject* _value</td>
+<td>int</td>
+<td>PySequence_Contains</td>
+</tr>
+<tr class="row-even"><td>__concat__</td>
+<td>PyObject* self, PyObject* _other</td>
+<td>PyObject*</td>
+<td>PySequence_Concat</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p>You just need to inform the function name to the add-function tag, without any
+parameter or return type information, when you do it, Shiboken will create a C
+function with parameters and return type defined by the table above.</p>
+<p>The function needs to follow the same semantics of the <em>CPython equivalent</em>
+function, the only way to do it is using the
+<a class="reference internal" href="typesystem_codeinjection.html#codeinjectionsemantics"><span class="std std-ref">inject-code</span></a> tag.</p>
+<p>A concrete example how to add sequence protocol support to a class can be found
+on shiboken tests, more precisely in the definition of the Str class in
+<code class="docutils literal notranslate"><span class="pre">tests/samplebinding/typesystem_sample.xml</span></code>.</p>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+    <a href="http://www.qt.io/"><img src="_static/logo_qt.png" alt="Qt" border="0" /></a>
+    <a href="http://www.python.org"><img src="_static/logo_python.jpg" alt="Python" border="0" /></a>
+    </div>
+</div>
+  </body>
+</html>

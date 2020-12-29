@@ -9,4 +9,4 @@ Copy files from an XML file.
 6. If your exl includes requenced files, enabled "Transfer sequenced files".
 	Enter what extensions your sequences uses, eg .R3D, .png, .exr
 
-![GUI](/gui.jpg)
+![GUI](/extra/gui.jpg)
