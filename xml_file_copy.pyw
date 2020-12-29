@@ -2,11 +2,6 @@ import sys
 import subprocess
 import os
 import os.path
-# check if python 2 or python 3 is used
-if sys.version[0] == "3":
-    import urllib.parse as urlparse
-else:
-    import urlparse
 
 import platform
 import errno
@@ -19,6 +14,13 @@ else:
 
 libdir = os.path.dirname(__file__)  # nopep8
 sys.path.insert(0, os.path.join(libdir, "PythonLibs", osName))  # nopep8
+
+if sys.version[0] == "3":   # nopep8
+    import urllib.parse as urlparse
+    import os.scandir as scandir
+else:
+    import urlparse
+    from scandir import scandir
 
 from PySide2.QtWidgets import *
 from PySide2.QtGui import *
@@ -326,7 +328,7 @@ class MainWindow(QMainWindow):
 
             return [
                 f.path
-                for f in os.scandir(basedir)
+                for f in scandir(basedir)
                 if f.is_file()
                 and f.name.startswith(filename_nodigits)
                 and f.name.endswith(ext)
