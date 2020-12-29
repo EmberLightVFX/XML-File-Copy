@@ -142,6 +142,8 @@ class MainWindow(QMainWindow):
         self.PRECISION_FORMATS = ["{}{:.0f} {}",
                                   "{}{:.1f} {}", "{}{:.2f} {}", "{}{:.3f} {}"]
         self.connectEvents()
+        appIcon = QIcon("extra/icon.png")
+        self.setWindowIcon(appIcon)
         self.show()
 
     def __keyPressEvent(self, event):
