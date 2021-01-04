@@ -204,7 +204,10 @@
      </widget>
     </item>
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout">
+     <layout class="QHBoxLayout" name="horizontalLayout"/>
+    </item>
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout">
       <item>
        <widget class="QCheckBox" name="cb_overwrite">
         <property name="text">
@@ -213,18 +216,35 @@
        </widget>
       </item>
       <item>
-       <widget class="QCheckBox" name="cb_sequence">
-        <property name="text">
-         <string>Transfer sequenced files</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLineEdit" name="le_sequence">
-        <property name="placeholderText">
-         <string>Enter extensions that uses sequences. Seperate using &quot;,&quot; Eg: R3D, png, jpg</string>
-        </property>
-       </widget>
+       <layout class="QHBoxLayout" name="horizontalLayout_4">
+        <item>
+         <widget class="QCheckBox" name="cb_sequence">
+          <property name="text">
+           <string>Transfer sequenced files</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="cb_extensions">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="text">
+           <string>Only specific extensions</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="le_extensions">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="placeholderText">
+           <string>Seperate using &quot;,&quot; Eg: R3D, png, jpg</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
      </layout>
     </item>

@@ -171,15 +171,30 @@ class MainWindow(QMainWindow):
         self.ui.btn_root.clicked.connect(
             lambda: self.getBasePath(self.ui.path_root))
 
-        self.ui.btn_check.clicked.connect(
-            self.fileProcess)
-        self.ui.btn_transfer.clicked.connect(
-            self.startTransfer)
+        self.ui.btn_check.clicked.connect(self.fileProcess)
+        self.ui.btn_transfer.clicked.connect(self.startTransfer)
         self.ui.rb_filecopy.toggled.connect(self.radioSwitch)
         self.ui.tw_status.keyPressEvent = self.__keyPressEvent
+        self.ui.cb_sequence.stateChanged.connect(self.transferChecked)
+        self.ui.cb_extensions.stateChanged.connect(self.extensionChecked)
+
+    def transferChecked(self):
+        if self.ui.cb_sequence.isChecked():
+            self.ui.cb_extensions.setEnabled(True)
+            if self.ui.cb_extensions.isChecked():
+                self.ui.le_extensions.setEnabled(True)
+        else:
+            self.ui.cb_extensions.setEnabled(False)
+            self.ui.le_extensions.setEnabled(False)
+
+    def extensionChecked(self):
+        if self.ui.cb_extensions.isChecked():
+            self.ui.le_extensions.setEnabled(True)
+        else:
+            self.ui.le_extensions.setEnabled(False)
 
     def radioSwitch(self):
-        if self.ui.lb_copy.isEnabled() is True:
+        if self.ui.lb_copy.isEnabled():
             self.ui.lb_copy.setEnabled(False)
             self.ui.path_copy.setEnabled(False)
             self.ui.btn_copy.setEnabled(False)
@@ -313,8 +328,8 @@ class MainWindow(QMainWindow):
             filename = filename[:-5]
         filename_noext, ext = os.path.splitext(filename)
 
-        seq_ext = self.ui.le_sequence.text().lower().replace(' ', '').split(",")
-        if ext.lower()[1:] in seq_ext:
+        seq_ext = self.ui.le_extensions.text().lower().replace(' ', '').split(",")
+        if ext.lower()[1:] in seq_ext or self.ui.cb_extensions.isChecked() is False:
             digits = sdigits
             if isinstance(filepath, bytes):
                 digits = sdigits.encode()
@@ -511,7 +526,7 @@ class MainWindow(QMainWindow):
 
         app.processEvents()
 
-    def HumanBytes(self, num, metric = False, precision = 2):
+    def HumanBytes(self, num, metric=False, precision=2):
         """
         Human-readable formatting of bytes, using binary (powers of 1024)
         or metric (powers of 1000) representation.

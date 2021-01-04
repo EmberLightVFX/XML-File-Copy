@@ -7,15 +7,17 @@
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
+
 from PySide2.QtCore import *
 from PySide2.QtGui import *
 from PySide2.QtWidgets import *
-            
+
+
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(786, 549)
+        MainWindow.resize(784, 542)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.centralwidget.setEnabled(True)
@@ -158,23 +160,40 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout = QHBoxLayout()
         self.horizontalLayout.setObjectName(u"horizontalLayout")
+
+        self.verticalLayout_2.addLayout(self.horizontalLayout)
+
+        self.verticalLayout = QVBoxLayout()
+        self.verticalLayout.setObjectName(u"verticalLayout")
         self.cb_overwrite = QCheckBox(self.centralwidget)
         self.cb_overwrite.setObjectName(u"cb_overwrite")
 
-        self.horizontalLayout.addWidget(self.cb_overwrite)
+        self.verticalLayout.addWidget(self.cb_overwrite)
 
+        self.horizontalLayout_4 = QHBoxLayout()
+        self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
         self.cb_sequence = QCheckBox(self.centralwidget)
         self.cb_sequence.setObjectName(u"cb_sequence")
 
-        self.horizontalLayout.addWidget(self.cb_sequence)
+        self.horizontalLayout_4.addWidget(self.cb_sequence)
 
-        self.le_sequence = QLineEdit(self.centralwidget)
-        self.le_sequence.setObjectName(u"le_sequence")
+        self.cb_extensions = QCheckBox(self.centralwidget)
+        self.cb_extensions.setObjectName(u"cb_extensions")
+        self.cb_extensions.setEnabled(False)
 
-        self.horizontalLayout.addWidget(self.le_sequence)
+        self.horizontalLayout_4.addWidget(self.cb_extensions)
+
+        self.le_extensions = QLineEdit(self.centralwidget)
+        self.le_extensions.setObjectName(u"le_extensions")
+        self.le_extensions.setEnabled(False)
+
+        self.horizontalLayout_4.addWidget(self.le_extensions)
 
 
-        self.verticalLayout_2.addLayout(self.horizontalLayout)
+        self.verticalLayout.addLayout(self.horizontalLayout_4)
+
+
+        self.verticalLayout_2.addLayout(self.verticalLayout)
 
         self.pb_file = QProgressBar(self.centralwidget)
         self.pb_file.setObjectName(u"pb_file")
@@ -262,7 +281,8 @@ class Ui_MainWindow(object):
         ___qtablewidgetitem4.setText(QCoreApplication.translate("MainWindow", u"Extension", None));
         self.cb_overwrite.setText(QCoreApplication.translate("MainWindow", u"Overwrite existing files", None))
         self.cb_sequence.setText(QCoreApplication.translate("MainWindow", u"Transfer sequenced files", None))
-        self.le_sequence.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Enter extensions that uses sequences. Seperate using \",\" Eg: R3D, png, jpg", None))
+        self.cb_extensions.setText(QCoreApplication.translate("MainWindow", u"Only specific extensions", None))
+        self.le_extensions.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Seperate using \",\" Eg: R3D, png, jpg", None))
         self.lb_info.setText(QCoreApplication.translate("MainWindow", u"0 out of 0 files copied", None))
         self.lb_datarate.setText(QCoreApplication.translate("MainWindow", u"Datarate", None))
         self.btn_check.setText(QCoreApplication.translate("MainWindow", u"Check Files", None))

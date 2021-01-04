@@ -18,7 +18,7 @@ Execute XML File Copy.bat/command or run `python "xml_file_copy.py"` from termin
 5. If you want to clone the tree structure, enable "Clone tree-structre".
 	To not copy the whole folder structure to your tree structure, select what location that should be the root of the tree structure.
 6. If your xml includes sequenced files, enabled "Transfer sequenced files".
-	Enter what extensions your sequences uses, eg .R3D, .png, .exr
+	If you want to only transfer sequences files with a specific extension, enable "Only specific extensions" and enter what extensions your sequenced file uses, eg .R3D, .png, .exr
 
 ##### Start Resilio sync:
 1. Select `Resilio Selective Sync` in the top.
